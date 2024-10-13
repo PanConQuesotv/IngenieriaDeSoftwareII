@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
             switch (nivelActual)
             {
-                case 0: // Nivel 1
+                case 1: // Nivel 1
                     if (puntos == 1 && SceneZeroOne1 != null)
                     {
                         SceneZeroOne1.Play("SceneZeroOneDoor1");
@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
                     }
                     break;
 
-                case 1: // Nivel 2
+                case 2: // Nivel 2
                     if (puntos == 1 && SceneZeroTwo1 != null)
                     {
                         SceneZeroTwo1.Play("SceneZeroTwoDoor1");
@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
                     }
                     break;
 
-                case 2: // Nivel 3
+                case 3: // Nivel 3
                     if (puntos == 1 && SceneZeroThree1 != null)
                     {
                         SceneZeroThree1.Play("SceneZeroThreeDoor1");
@@ -190,7 +190,7 @@ public class PlayerController : MonoBehaviour
                     }
                     break;
 
-                case 3: // Nivel 4
+                case 4: // Nivel 4
                     if (puntos == 1 && SceneZeroFour != null)
                     {
                         SceneZeroFour.Play("SceneZeroFourDoor1");
