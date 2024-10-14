@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     private int contador = 0;
-    int[] cubosNecesarios = { 5, 5, 5, 2 }; // Número de cubos necesarios para cada nivel
+    int[] cubosNecesarios = { 0, 5, 5, 5,2 }; // Número de cubos necesarios para cada nivel
     private int nivelActual = 0; // Nivel actual según el índice de las escenas
     public Text puntuacion;
     public float moveSpeed = 5f;         // Velocidad de movimiento del jugador
@@ -57,19 +57,27 @@ public class PlayerController : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
-        contador++;
-        puntuacion.text = "Puntuacion: " + contador;
-
-        // Verificar si se ha alcanzado el número necesario de cubos
-        if (contador >= cubosNecesarios[nivelActual])
+        // Verificar si el objeto que entra tiene la etiqueta "Cubo"
+        if (other.CompareTag("Cubo"))
         {
-            cambiarEscena(); // Cambia de escena si se han recogido los cubos necesarios
+            Destroy(other.gameObject); // Destruir el cubo
+            contador++; // Incrementar el contador
+            puntuacion.text = "Puntuacion: " + contador; // Actualizar la UI
+
+            // Verificar si se ha alcanzado el número necesario de cubos
+            if (contador >= cubosNecesarios[nivelActual])
+            {
+                cambiarEscena(); // Cambiar de escena si se han recogido los cubos necesarios
+            }
+            else
+            {
+                // Activar la animación correspondiente según el número de cubos recogidos
+                ActivarAnimacion(contador);
+            }
         }
         else
         {
-            // Activar la animación correspondiente según el número de cubos recogidos
-            ActivarAnimacion(contador);
+            // Opcional: Manejar otros triggers que no sean cubos
         }
     }
 
@@ -118,89 +126,86 @@ public class PlayerController : MonoBehaviour
     // Método para activar la animación según el nivel y el número de puntos
     void ActivarAnimacion(int puntos)
     {
+        switch (nivelActual)
+        {
+            case 1: // Nivel 1
+                if (puntos == 1 && SceneZeroOne1 != null)
+                {
+                    SceneZeroOne1.Play("SceneZeroOneDoor1");
+                    Debug.Log("Se activó la animación para la puerta 1 en el Nivel 1");
+                }
+                else if (puntos == 2 && SceneZeroOne2 != null)
+                {
+                    SceneZeroOne2.Play("SceneZeroOneDoor2");
+                    Debug.Log("Se activó la animación para la puerta 2 en el Nivel 1");
+                }
+                else if (puntos == 3 && SceneZeroOne3 != null)
+                {
+                    SceneZeroOne3.Play("SceneZeroOneDoor3");
+                    Debug.Log("Se activó la animación para la puerta 3 en el Nivel 1");
+                }
+                else if (puntos == 4 && SceneZeroOne4 != null)
+                {
+                    SceneZeroOne4.Play("SceneZeroOneDoor4");
+                    Debug.Log("Se activó la animación para la puerta 4 en el Nivel 1");
+                }
+                break;
 
-            switch (nivelActual)
-            {
-                case 1: // Nivel 1
-                    if (puntos == 1 && SceneZeroOne1 != null)
-                    {
-                        SceneZeroOne1.Play("SceneZeroOneDoor1");
-                        Debug.Log("Se activó la animación para la puerta 1 en el Nivel 1");
-                    }
-                    else if (puntos == 2 && SceneZeroOne2 != null)
-                    {
-                        SceneZeroOne2.Play("SceneZeroOneDoor2");
-                        Debug.Log("Se activó la animación para la puerta 2 en el Nivel 1");
-                    }
-                    else if (puntos == 3 && SceneZeroOne3 != null)
-                    {
-                        SceneZeroOne3.Play("SceneZeroOneDoor3");
-                        Debug.Log("Se activó la animación para la puerta 3 en el Nivel 1");
-                    }
-                    else if (puntos == 4 && SceneZeroOne4 != null)
-                    {
-                        SceneZeroOne4.Play("SceneZeroOneDoor4");
-                        Debug.Log("Se activó la animación para la puerta 4 en el Nivel 1");
-                    }
-                    break;
+            case 2: // Nivel 2
+                if (puntos == 1 && SceneZeroTwo1 != null)
+                {
+                    SceneZeroTwo1.Play("SceneZeroTwoDoor1");
+                    Debug.Log("Se activó la animación para la puerta 1 en el Nivel 2");
+                }
+                else if (puntos == 2 && SceneZeroTwo2 != null)
+                {
+                    SceneZeroTwo2.Play("SceneZeroTwoDoor2");
+                    Debug.Log("Se activó la animación para la puerta 2 en el Nivel 2");
+                }
+                else if (puntos == 3 && SceneZeroTwo3 != null)
+                {
+                    SceneZeroTwo3.Play("SceneZeroTwoDoor3");
+                    Debug.Log("Se activó la animación para la puerta 3 en el Nivel 2");
+                }
+                else if (puntos == 4 && SceneZeroTwo4 != null)
+                {
+                    SceneZeroTwo4.Play("SceneZeroTwoDoor4");
+                    Debug.Log("Se activó la animación para la puerta 4 en el Nivel 2");
+                }
+                break;
 
-                case 2: // Nivel 2
-                    if (puntos == 1 && SceneZeroTwo1 != null)
-                    {
-                        SceneZeroTwo1.Play("SceneZeroTwoDoor1");
-                        Debug.Log("Se activó la animación para la puerta 1 en el Nivel 2");
-                    }
-                    else if (puntos == 2 && SceneZeroTwo2 != null)
-                    {
-                        SceneZeroTwo2.Play("SceneZeroTwoDoor2");
-                        Debug.Log("Se activó la animación para la puerta 2 en el Nivel 2");
-                    }
-                    else if (puntos == 3 && SceneZeroTwo3 != null)
-                    {
-                        SceneZeroTwo3.Play("SceneZeroTwoDoor3");
-                        Debug.Log("Se activó la animación para la puerta 3 en el Nivel 2");
-                    }
-                    else if (puntos == 4 && SceneZeroTwo4 != null)
-                    {
-                        SceneZeroTwo4.Play("SceneZeroTwoDoor4");
-                        Debug.Log("Se activó la animación para la puerta 4 en el Nivel 2");
-                    }
-                    break;
+            case 3: // Nivel 3
+                if (puntos == 1 && SceneZeroThree1 != null)
+                {
+                    SceneZeroThree1.Play("SceneZeroThreeDoor1");
+                    Debug.Log("Se activó la animación para la puerta 1 en el Nivel 3");
+                }
+                else if (puntos == 2 && SceneZeroThree2 != null)
+                {
+                    SceneZeroThree2.Play("SceneZeroThreeDoor2");
+                    Debug.Log("Se activó la animación para la puerta 2 en el Nivel 3");
+                }
+                else if (puntos == 3 && SceneZeroThree3 != null)
+                {
+                    SceneZeroThree3.Play("SceneZeroThreeDoor3");
+                    Debug.Log("Se activó la animación para la puerta 3 en el Nivel 3");
+                }
+                else if (puntos == 4 && SceneZeroThree4 != null)
+                {
+                    SceneZeroThree4.Play("SceneZeroThreeDoor4");
+                    Debug.Log("Se activó la animación para la puerta 4 en el Nivel 3");
+                }
+                break;
 
-                case 3: // Nivel 3
-                    if (puntos == 1 && SceneZeroThree1 != null)
-                    {
-                        SceneZeroThree1.Play("SceneZeroThreeDoor1");
-                        Debug.Log("Se activó la animación para la puerta 1 en el Nivel 3");
-                    }
-                    else if (puntos == 2 && SceneZeroThree2 != null)
-                    {
-                        SceneZeroThree2.Play("SceneZeroThreeDoor2");
-                        Debug.Log("Se activó la animación para la puerta 2 en el Nivel 3");
-                    }
-                    else if (puntos == 3 && SceneZeroThree3 != null)
-                    {
-                        SceneZeroThree3.Play("SceneZeroThreeDoor3");
-                        Debug.Log("Se activó la animación para la puerta 3 en el Nivel 3");
-                    }
-                    else if (puntos == 4 && SceneZeroThree4 != null)
-                    {
-                        SceneZeroThree4.Play("SceneZeroThreeDoor4");
-                        Debug.Log("Se activó la animación para la puerta 4 en el Nivel 3");
-                    }
-                    break;
-
-                case 4: // Nivel 4
-                    if (puntos == 1 && SceneZeroFour != null)
-                    {
-                        SceneZeroFour.Play("SceneZeroFourDoor1");
-                        Debug.Log("Se activó la animación para la puerta 1 en el Nivel 4");
-                    }
-                    break;
-            }
-
+            case 4: // Nivel 4
+                if (puntos == 1 && SceneZeroFour != null)
+                {
+                    SceneZeroFour.Play("SceneZeroFourDoor1");
+                    Debug.Log("Se activó la animación para la puerta 1 en el Nivel 4");
+                }
+                break;
         }
-    
+    }
 
     // Cambiar de escena cuando se cumplen los requisitos de cubos
     void cambiarEscena()
@@ -214,6 +219,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.Log("Has completado todos los niveles");
+            // Opcional: Implementar lógica para finalizar el juego, mostrar una pantalla de victoria, etc.
         }
     }
 }
